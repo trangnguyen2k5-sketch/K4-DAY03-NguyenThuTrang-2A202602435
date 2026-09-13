@@ -45,8 +45,16 @@ Dán 1 đoạn trích xuất log tiêu biểu từ file `docs/trace_waterfall.js
         "itinerary": "Hàm Nghi -> Nguyễn Hoàng -> Phạm Hùng -> Trần Duy Hưng -> Nguyễn Chí Thanh -> Huỳnh Thúc Kháng -> Thái Hà -> Chùa Bộc -> Phạm Ngọc Thạch -> Đào Duy Anh -> Đại Cổ Việt -> Trần Khát Chân -> Nguyễn Khoái -> Cầu Vĩnh Tuy -> Cổ Linh -> Vinhomes Ocean Park 1."
       }
     },
-    "latency_ms": 0.0
-  }
+    "latency_ms": 2266.19
+  },
+  {
+    "step": 2,
+    "query": "Tuyến xe bus điện E03 có lộ trình di chuyển và giá vé lượt cụ thể như thế nào?",
+    "action_type": "FINAL_ANSWER",
+    "thought": "Tổng hợp kết quả từ MCP Server thành công.",
+    "output": "Thông tin chi tiết Tuyến E03: KĐT Mỹ Đình (Hàm Nghi) - KĐT Vinhomes Ocean Park:\n- Giờ hoạt động: 05:05 - 21:00 (Tần suất 15-20 phút/chuyến)\n- Giá vé lượt: 9,000 VNĐ/lượt\n- Giá vé tháng 1 tuyến: 100,000 VNĐ/tháng\n- Lộ trình: Hàm Nghi -> Nguyễn Hoàng -> Phạm Hùng -> Trần Duy Hưng -> Nguyễn Chí Thanh -> Huỳnh Thúc Kháng -> Thái Hà -> Chùa Bộc -> Phạm Ngọc Thạch -> Đào Duy Anh -> Đại Cổ Việt -> Trần Khát Chân -> Nguyễn Khoái -> Cầu Vĩnh Tuy -> Cổ Linh -> Vinhomes Ocean Park 1.",
+    "latency_ms": 10.0
+  },
 ]
 ```
 
