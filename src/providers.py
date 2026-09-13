@@ -6,6 +6,7 @@ Hỗ trợ Native Tool Calling và chuyển đổi linh hoạt qua biến môi t
 import os
 import sys
 import json
+import re
 from typing import Dict, Any, List
 from dotenv import load_dotenv
 
@@ -32,32 +33,66 @@ class MockOfflineProvider(BaseLLMProvider):
         self.model_name = "Offline-Mock-Model-2026"
 
     def generate(self, prompt: str, system_prompt: str = "") -> str:
-        return f"[Mock Chatbot Response]: Xin chào! Tôi đã nhận được câu hỏi '{prompt}'. (Chế độ Chatbot không có Tool tra cứu dữ liệu thời gian thực)."
+        return f"[Mock Chatbot Response]: Xin chào! Xe bus điện VinBus là phương tiện giao thông công cộng xanh, không phát thải, không tiếng ồn. Giá vé lượt thông thường dao động từ 7,000 đến 9,000 VNĐ/lượt tùy tuyến."
 
     def generate_with_tools(self, prompt: str, tools_schema: List[Dict[str, Any]], system_prompt: str = "") -> Dict[str, Any]:
         prompt_lower = prompt.lower()
         
-        # Mô phỏng nhận diện intent gọi Tool
-        if "sv2026001" in prompt_lower and "đặt lịch" in prompt_lower:
+        # Mô phỏng nhận diện intent gọi Tool cho VinBus
+        if "đăng ký" in prompt_lower and ("vé tháng" in prompt_lower or "thẻ" in prompt_lower):
+            if "0912345678" in prompt_lower or "liên tuyến" in prompt_lower:
+                return {
+                    "type": "tool_call",
+                    "tool_name": "register_monthly_pass",
+                    "arguments": {
+                        "route_id": "inter_route",
+                        "customer_name": "Hành khách",
+                        "phone": "0912345678",
+                        "pickup_location": "Ocean Park 1",
+                        "card_type": "inter_route"
+                    },
+                    "thought": "Người dùng muốn đăng ký vé tháng liên tuyến VinBus. Tôi sẽ gọi tool register_monthly_pass với card_type='inter_route'."
+                }
+            else:
+                return {
+                    "type": "tool_call",
+                    "tool_name": "register_monthly_pass",
+                    "arguments": {
+                        "route_id": "E01",
+                        "customer_name": "Nguyễn Văn A",
+                        "phone": "0987654321",
+                        "pickup_location": "Times City",
+                        "card_type": "single_route"
+                    },
+                    "thought": "Người dùng yêu cầu đăng ký vé tháng 1 tuyến E01. Tôi sẽ gọi tool register_monthly_pass."
+                }
+        elif "tìm lộ trình" in prompt_lower or "đi từ" in prompt_lower:
             return {
                 "type": "tool_call",
-                "tool_name": "schedule_appointment",
-                "arguments": {"student_id": "SV2026001", "datetime_str": "14:00 15/09/2026", "advisor_name": "PGS.TS Nguyễn Văn A"},
-                "thought": "Người dùng yêu cầu đặt lịch hẹn tư vấn cho sinh viên SV2026001. Tôi sẽ gọi tool schedule_appointment."
+                "tool_name": "find_best_route",
+                "arguments": {
+                    "start_location": "KĐT Smart City",
+                    "destination": "Vinhomes Ocean Park 1"
+                },
+                "thought": "Người dùng muốn tìm lộ trình tối ưu đi từ Smart City sang Ocean Park 1. Tôi sẽ gọi tool find_best_route."
             }
-        elif "sv2026001" in prompt_lower or "tra cứu" in prompt_lower:
+        elif "tuyến" in prompt_lower or "lộ trình" in prompt_lower or "bus" in prompt_lower or re.search(r'\be\d+\b', prompt_lower):
+            match = re.search(r'\b(e\d+)\b', prompt_lower)
+            route_id = match.group(1).upper() if match else "E01"
             return {
                 "type": "tool_call",
-                "tool_name": "academic_query",
-                "arguments": {"student_id": "SV2026001"},
-                "thought": "Người dùng muốn tra cứu thông tin học vụ của sinh viên SV2026001. Tôi sẽ gọi tool academic_query."
+                "tool_name": "get_route_details",
+                "arguments": {"route_id": route_id},
+                "thought": f"Người dùng muốn tra cứu chi tiết lộ trình tuyến {route_id}. Tôi sẽ gọi tool get_route_details."
             }
         else:
             return {
                 "type": "text",
-                "content": f"[Mock Agent Response]: Xin chào! Quy chế học vụ VinUni yêu cầu sinh viên tích lũy tối thiểu 120 tín chỉ và duy trì GPA trên 2.0 để tốt nghiệp.",
-                "thought": "Câu hỏi chung về quy chế học vụ, trả lời trực tiếp không cần gọi Tool."
+                "content": "[Mock Agent Response]: Xe bus điện VinBus mang đến trải nghiệm di chuyển êm ái, bảo vệ môi trường với hệ thống wifi miễn phí, cổng sạc USB. Giá vé lượt niêm yết từ 7,000 - 9,000 VNĐ/lượt.",
+                "thought": "Câu hỏi chung về ưu điểm và chính sách giá vé VinBus, trả lời trực tiếp không cần gọi Tool."
             }
+
+
 
 
 class GeminiProvider(BaseLLMProvider):

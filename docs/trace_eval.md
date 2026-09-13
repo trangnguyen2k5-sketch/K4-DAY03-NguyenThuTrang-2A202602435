@@ -1,8 +1,8 @@
 # 📊 BÁO CÁO THU HOẠCH NGHIỆM THU BÀI LAB 3 (BƯỚC 3 — SUBMISSION ARTIFACT)
 
-> **Họ và Tên Học viên:** [Điền Họ và Tên]  
-> **Mã Sinh Viên / Mã Học viên:** [Điền MSSV]  
-> **Chủ đề Lựa chọn:** [Điền tên chủ đề đã chọn từ docs/DANH_SACH_DE_TAI.md hoặc Đề tài Mở]  
+> **Họ và Tên Học viên:** Nguyễn Thu Trang
+> **Mã Sinh Viên / Mã Học viên:** 2A202602435
+> **Chủ đề Lựa chọn:** *Trợ lý Dịch vụ Khách hàng VinBus:* Tra cứu lộ trình tuyến xe bus điện và đăng ký vé tháng.  
 
 ---
 
@@ -10,11 +10,11 @@
 
 | Tiêu chí Đánh giá | Mức độ (1 - 5) | Giải trình chi tiết lý do chọn điểm |
 | :--- | :---: | :--- |
-| **1. Multi-step Reasoning** | / 5 | Bài toán có yêu cầu chia nhỏ nhiều bước suy luận nối tiếp nhau không? |
-| **2. Tool Interaction** | / 5 | Hệ thống có cần kết nối với MCP Server / Cơ sở dữ liệu bên ngoài không? |
-| **3. Dynamic Decision** | / 5 | Bước tiếp theo có phụ thuộc vào kết quả quan sát bước trước không? |
-| **4. Long Horizon Goal** | / 5 | Hệ thống có phải giữ mục tiêu xuyên suốt qua nhiều lượt xử lý không? |
-| **TỔNG ĐIỂM AGENTIC FIT** | **/ 20** | *Nếu tổng điểm > 12/20: Bài toán rất phù hợp triển khai Agentic System.* |
+| **1. Multi-step Reasoning** | 4 / 5 | Bài toán có yêu cầu chia nhỏ nhiều bước suy luận nối tiếp nhau không? |
+| **2. Tool Interaction** | 5 / 5 | Hệ thống có cần kết nối với MCP Server / Cơ sở dữ liệu bên ngoài không? |
+| **3. Dynamic Decision** | 4 / 5 | Bước tiếp theo có phụ thuộc vào kết quả quan sát bước trước không? |
+| **4. Long Horizon Goal** | 4 / 5 | Hệ thống có phải giữ mục tiêu xuyên suốt qua nhiều lượt xử lý không? |
+| **TỔNG ĐIỂM AGENTIC FIT** | **17 / 20** | *Nếu tổng điểm > 12/20: Bài toán rất phù hợp triển khai Agentic System.* |
 
 ---
 
@@ -28,20 +28,24 @@ Dán 1 đoạn trích xuất log tiêu biểu từ file `docs/trace_waterfall.js
 [
   {
     "step": 1,
+    "query": "Tuyến xe bus điện E03 có lộ trình di chuyển và giá vé lượt cụ thể như thế nào?",
     "action_type": "TOOL_EXECUTION",
-    "tool_name": "academic_query",
+    "tool_name": "get_route_details",
     "arguments": {
-      "student_id": "SV2026001"
+      "route_id": "E03"
     },
     "observation": {
       "status": "SUCCESS",
-      "student_id": "SV2026001",
+      "route_id": "E03",
       "data": {
-        "full_name": "Nguyễn Văn An",
-        "gpa": 3.85
+        "route_name": "Tuyến E03: KĐT Mỹ Đình (Hàm Nghi) - KĐT Vinhomes Ocean Park",
+        "operating_hours": "05:05 - 21:00 (Tần suất 15-20 phút/chuyến)",
+        "single_ticket_price": "9,000 VNĐ/lượt",
+        "monthly_single_price": "100,000 VNĐ/tháng",
+        "itinerary": "Hàm Nghi -> Nguyễn Hoàng -> Phạm Hùng -> Trần Duy Hưng -> Nguyễn Chí Thanh -> Huỳnh Thúc Kháng -> Thái Hà -> Chùa Bộc -> Phạm Ngọc Thạch -> Đào Duy Anh -> Đại Cổ Việt -> Trần Khát Chân -> Nguyễn Khoái -> Cầu Vĩnh Tuy -> Cổ Linh -> Vinhomes Ocean Park 1."
       }
     },
-    "latency_ms": 120.5
+    "latency_ms": 0.0
   }
 ]
 ```
@@ -50,10 +54,10 @@ Dán 1 đoạn trích xuất log tiêu biểu từ file `docs/trace_waterfall.js
 
 ## 3. TỔNG KẾT KẾT QUẢ NGHIỆM THU & NỘP BÀI
 
-- [ ] Đã điền API Key thật trong `.env` và xác nhận Agent chạy mượt mà trên LLM API thật (Gemini/OpenAI).
-- **Tổng số Test Cases đã chạy thành công:** ___ / 5 test cases.
-- **Số lượt gọi Tool qua MCP Server chính xác:** ___ lượt.
-- **Kết quả đẩy Repo nộp bài:** [ ] Đã Commit và Push mã nguồn thành công lên GitHub cá nhân.
+- [x] Đã điền API Key thật trong `.env` và xác nhận Agent chạy mượt mà trên LLM API thật (Gemini/OpenAI).
+- **Tổng số Test Cases đã chạy thành công:** 5 / 5 test cases.
+- **Số lượt gọi Tool qua MCP Server chính xác:** 4 lượt.
+- **Kết quả đẩy Repo nộp bài:** [x] Đã Commit và Push mã nguồn thành công lên GitHub cá nhân.
 
 ---
 

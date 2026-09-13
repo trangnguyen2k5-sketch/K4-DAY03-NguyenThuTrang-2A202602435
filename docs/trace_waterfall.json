@@ -1,29 +1,122 @@
 [
   {
     "step": 1,
-    "query": "Chào bạn, bạn có thể giới thiệu quy chế học vụ cơ bản của Đại học VinUni không?",
+    "query": "Chào bạn, xe bus điện VinBus có những ưu điểm gì và chính sách giá vé lượt chung hiện nay ra sao?",
     "action_type": "FINAL_ANSWER",
-    "thought": "Câu hỏi chung về quy chế học vụ, trả lời trực tiếp không cần gọi Tool.",
-    "output": "[Mock Agent Response]: Xin chào! Quy chế học vụ VinUni yêu cầu sinh viên tích lũy tối thiểu 120 tín chỉ và duy trì GPA trên 2.0 để tốt nghiệp.",
-    "latency_ms": 2845.93
+    "thought": "Gemini phản hồi trực tiếp bằng văn bản (không cần gọi công cụ).",
+    "output": "Chào bạn! Dưới đây là những ưu điểm nổi bật của dịch vụ xe bus điện VinBus cùng chính sách giá vé lượt chung hiện nay:\n\n### 🌟 1. Ưu điểm nổi bật của xe bus điện VinBus:\n* **Thân thiện với môi trường:** Không phát thải khói bụi, không tiếng ồn động cơ, góp phần giảm thiểu ô nhiễm không khí và ô nhiễm tiếng ồn đô thị.\n* **Tiện nghi & Hiện đại:** \n  * Trang bị Wi-Fi miễn phí, cổng sạc USB tại từng hàng ghế.\n  * Màn hình thông tin giải trí, thông báo điểm dừng tự động bằng âm thanh và hình ảnh rõ ràng.\n  * Hệ thống hạ sàn tự động trợ giúp người di chuyển khó khăn, xe lăn, người già và trẻ em.\n* **An toàn cao:** Trang bị hệ thống cảnh báo nguy cơ mất an toàn (ADAS), camera AI giám sát hành vi tài xế, kiểm soát hành trình.\n* **Thanh toán linh hoạt:** Hỗ trợ nhiều hình thức thanh toán không dùng tiền mặt (thẻ ngân hàng, ví điện tử, mã QR, thẻ VinBus...).\n* **Thái độ phục vụ chuyên nghiệp:** Đội ngũ tài xế và nhân viên được đào tạo bài bản, thân thiện, văn minh.\n\n---\n\n### 💵 2. Chính sách giá vé lượt chung:\n* **Giá vé lượt:** Thường dao động từ **7.000 VNĐ – 9.000 VNĐ / lượt** (tùy thuộc vào độ dài tuyến đường và quy định niêm yết tại từng tỉnh/thành phố như Hà Nội, TP.HCM, Phú Quốc).\n* **Miễn phí vé:** Áp dụng theo quy định chung cho các đối tượng ưu tiên (người cao tuổi, người có công, người khuyết tật, trẻ em dưới 6 tuổi...).\n\nNếu bạn cần tra cứu cụ thể giá vé hoặc lộ trình của một tuyến xe VinBus nhất định, bạn cứ cho mình biết mã tuyến (ví dụ: E01, E03, E05...) nhé!",
+    "latency_ms": 6227.27
   },
   {
     "step": 1,
-    "query": "Hãy tra cứu thông tin học vụ của sinh viên SV2026001.",
+    "query": "Tuyến xe bus điện E03 có lộ trình di chuyển và giá vé lượt cụ thể như thế nào?",
     "action_type": "TOOL_EXECUTION",
-    "tool_name": "academic_query",
+    "tool_name": "get_route_details",
     "arguments": {
-      "student_id": "SV2026001"
+      "route_id": "E03"
     },
-    "observation": {},
-    "latency_ms": 799.12
+    "observation": {
+      "status": "SUCCESS",
+      "route_id": "E03",
+      "data": {
+        "route_name": "Tuyến E03: KĐT Mỹ Đình (Hàm Nghi) - KĐT Vinhomes Ocean Park",
+        "operating_hours": "05:05 - 21:00 (Tần suất 15-20 phút/chuyến)",
+        "single_ticket_price": "9,000 VNĐ/lượt",
+        "monthly_single_price": "100,000 VNĐ/tháng",
+        "itinerary": "Hàm Nghi -> Nguyễn Hoàng -> Phạm Hùng -> Trần Duy Hưng -> Nguyễn Chí Thanh -> Huỳnh Thúc Kháng -> Thái Hà -> Chùa Bộc -> Phạm Ngọc Thạch -> Đào Duy Anh -> Đại Cổ Việt -> Trần Khát Chân -> Nguyễn Khoái -> Cầu Vĩnh Tuy -> Cổ Linh -> Vinhomes Ocean Park 1."
+      }
+    },
+    "latency_ms": 2266.19
   },
   {
     "step": 2,
-    "query": "Hãy tra cứu thông tin học vụ của sinh viên SV2026001.",
+    "query": "Tuyến xe bus điện E03 có lộ trình di chuyển và giá vé lượt cụ thể như thế nào?",
     "action_type": "FINAL_ANSWER",
     "thought": "Tổng hợp kết quả từ MCP Server thành công.",
-    "output": "Chưa thể trả lời chi tiết do chưa nhận được dữ liệu từ MCP Server (hãy hoàn thành TODO 2.1).",
+    "output": "Thông tin chi tiết Tuyến E03: KĐT Mỹ Đình (Hàm Nghi) - KĐT Vinhomes Ocean Park:\n- Giờ hoạt động: 05:05 - 21:00 (Tần suất 15-20 phút/chuyến)\n- Giá vé lượt: 9,000 VNĐ/lượt\n- Giá vé tháng 1 tuyến: 100,000 VNĐ/tháng\n- Lộ trình: Hàm Nghi -> Nguyễn Hoàng -> Phạm Hùng -> Trần Duy Hưng -> Nguyễn Chí Thanh -> Huỳnh Thúc Kháng -> Thái Hà -> Chùa Bộc -> Phạm Ngọc Thạch -> Đào Duy Anh -> Đại Cổ Việt -> Trần Khát Chân -> Nguyễn Khoái -> Cầu Vĩnh Tuy -> Cổ Linh -> Vinhomes Ocean Park 1.",
+    "latency_ms": 10.0
+  },
+  {
+    "step": 1,
+    "query": "Tôi muốn đăng ký làm thẻ vé tháng 1 tuyến cho tuyến E01, thông tin: Nguyễn Văn A, SĐT: 0987654321, nhận thẻ vật lý tại điểm đón Times City.",
+    "action_type": "TOOL_EXECUTION",
+    "tool_name": "register_monthly_pass",
+    "arguments": {
+      "card_type": "single_route",
+      "customer_name": "Nguyễn Văn A",
+      "phone": "0987654321",
+      "route_id": "E01",
+      "pickup_location": "Times City"
+    },
+    "observation": {
+      "status": "SUCCESS",
+      "booking_id": "VB-PASS-4321-2026",
+      "customer_name": "Nguyễn Văn A",
+      "phone": "0987654321",
+      "card_type": "single_route",
+      "route_id": "E01",
+      "pickup_location": "Times City",
+      "price": "100,000 VNĐ/tháng",
+      "message": "Đăng ký thẻ vé tháng VinBus thành công! Mã đăng ký: VB-PASS-4321-2026. Khách hàng: Nguyễn Văn A (0987654321). Phạm vi: Tuyến E01. Giá vé: 100,000 VNĐ/tháng. Địa điểm nhận thẻ: Điểm đón Times City."
+    },
+    "latency_ms": 5714.52
+  },
+  {
+    "step": 2,
+    "query": "Tôi muốn đăng ký làm thẻ vé tháng 1 tuyến cho tuyến E01, thông tin: Nguyễn Văn A, SĐT: 0987654321, nhận thẻ vật lý tại điểm đón Times City.",
+    "action_type": "FINAL_ANSWER",
+    "thought": "Tổng hợp kết quả từ MCP Server thành công.",
+    "output": "Đăng ký thẻ vé tháng VinBus thành công! Mã đăng ký: VB-PASS-4321-2026. Khách hàng: Nguyễn Văn A (0987654321). Phạm vi: Tuyến E01. Giá vé: 100,000 VNĐ/tháng. Địa điểm nhận thẻ: Điểm đón Times City.",
+    "latency_ms": 10.0
+  },
+  {
+    "step": 1,
+    "query": "Tôi muốn đi từ KĐT Smart City sang Vinhomes Ocean Park 1, hãy tìm lộ trình nhanh nhất và đăng ký vé tháng liên tuyến cho tôi luôn với SĐT 0912345678.",
+    "action_type": "TOOL_EXECUTION",
+    "tool_name": "find_best_route",
+    "arguments": {
+      "start_location": "KĐT Smart City",
+      "destination": "Vinhomes Ocean Park 1"
+    },
+    "observation": {
+      "status": "SUCCESS",
+      "start_location": "KĐT Smart City",
+      "destination": "Vinhomes Ocean Park 1",
+      "recommended_route": "Tuyến E05 (từ Smart City đến Nguyễn Chí Thanh) kết hợp chuyển tiếp sang tuyến E03 (đến Vinhomes Ocean Park 1)",
+      "estimated_travel_time": "55 phút",
+      "fare": "16,000 VNĐ (lượt) hoặc khuyên dùng Thẻ vé tháng liên tuyến (200,000 VNĐ/tháng)",
+      "message": "Lộ trình tối ưu đi từ 'KĐT Smart City' đến 'Vinhomes Ocean Park 1': Đón tuyến E05 chuyển tiếp tuyến E03 tại điểm Nguyễn Chí Thanh để tới Vinhomes Ocean Park 1. Thời gian di chuyển ước tính: 55 phút."
+    },
+    "latency_ms": 3624.16
+  },
+  {
+    "step": 2,
+    "query": "Tôi muốn đi từ KĐT Smart City sang Vinhomes Ocean Park 1, hãy tìm lộ trình nhanh nhất và đăng ký vé tháng liên tuyến cho tôi luôn với SĐT 0912345678.",
+    "action_type": "FINAL_ANSWER",
+    "thought": "Tổng hợp kết quả từ MCP Server thành công.",
+    "output": "Lộ trình tối ưu đi từ 'KĐT Smart City' đến 'Vinhomes Ocean Park 1': Đón tuyến E05 chuyển tiếp tuyến E03 tại điểm Nguyễn Chí Thanh để tới Vinhomes Ocean Park 1. Thời gian di chuyển ước tính: 55 phút.",
+    "latency_ms": 10.0
+  },
+  {
+    "step": 1,
+    "query": "Tôi muốn tra cứu lộ trình và lịch chạy của tuyến xe bus điện E99 tại Hà Nội.",
+    "action_type": "TOOL_EXECUTION",
+    "tool_name": "get_route_details",
+    "arguments": {
+      "route_id": "E99"
+    },
+    "observation": {
+      "status": "NOT_FOUND",
+      "message": "Tuyến xe bus điện 'E99' không tồn tại hoặc chưa được đưa vào vận hành trên hệ thống VinBus."
+    },
+    "latency_ms": 2421.63
+  },
+  {
+    "step": 2,
+    "query": "Tôi muốn tra cứu lộ trình và lịch chạy của tuyến xe bus điện E99 tại Hà Nội.",
+    "action_type": "FINAL_ANSWER",
+    "thought": "Tổng hợp kết quả từ MCP Server thành công.",
+    "output": "Tuyến xe bus điện 'E99' không tồn tại hoặc chưa được đưa vào vận hành trên hệ thống VinBus.",
     "latency_ms": 10.0
   }
 ]

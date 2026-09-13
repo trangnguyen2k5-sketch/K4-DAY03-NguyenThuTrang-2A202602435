@@ -122,16 +122,18 @@ def run_react_agent(user_query: str, provider, mcp_server: MCPAcademicServer) ->
                     if "data" in obs_data:
                         d = obs_data["data"]
                         final_answer = (
-                            f"Kết quả tra cứu cho sinh viên {obs_data.get('student_id', '')} ({d.get('full_name', '')}): "
-                            f"Lớp {d.get('class', '')}, GPA: {d.get('gpa', '')}, Email: {d.get('email', '')}, "
-                            f"Trạng thái: {d.get('status', '')}, Cố vấn: {d.get('advisor', '')}."
+                            f"Thông tin chi tiết {d.get('route_name', '')}:\n"
+                            f"- Giờ hoạt động: {d.get('operating_hours', '')}\n"
+                            f"- Giá vé lượt: {d.get('single_ticket_price', '')}\n"
+                            f"- Giá vé tháng 1 tuyến: {d.get('monthly_single_price', '')}\n"
+                            f"- Lộ trình: {d.get('itinerary', '')}"
                         )
                     elif "message" in obs_data:
                         final_answer = obs_data["message"]
                     else:
                         final_answer = f"Đã hoàn tất xử lý qua MCP Server: {json.dumps(obs_data, ensure_ascii=False)}"
                 elif obs_data.get("status") == "NOT_FOUND":
-                    final_answer = obs_data.get("message", "Không tìm thấy thông tin sinh viên yêu cầu.")
+                    final_answer = obs_data.get("message", "Không tìm thấy thông tin tuyến xe bus yêu cầu.")
                 else:
                     final_answer = f"Phản hồi từ công cụ: {json.dumps(obs_data, ensure_ascii=False)}"
             
@@ -164,11 +166,11 @@ def run_react_agent(user_query: str, provider, mcp_server: MCPAcademicServer) ->
 
 if __name__ == "__main__":
     print("==========================================================")
-    print("🏫 VINUNI AI COURSE - DAY 03 LAB: CHATBOT VS REACT AGENT")
+    print("🚌 VINBUS AI CUSTOMER SERVICE ASSISTANT - DAY 03 LAB")
     print("==========================================================")
     
     provider = get_llm_provider()
-    mcp_server = MCPAcademicServer()
+    mcp_server = MCPAcademicServer("vinbus-mcp-server")
     
     print(f"🔌 LLM Provider: {provider.__class__.__name__}")
     print(f"🌐 MCP Server: {mcp_server.server_name}\n")
@@ -179,10 +181,12 @@ if __name__ == "__main__":
     if "--interactive" in sys.argv:
         print("🎮 [INTERACTIVE MODE] Trò chuyện trực tiếp với ReAct Agent:")
         print("💡 Gợi ý câu hỏi thử nghiệm:")
-        print("   - Câu hỏi chung: 'Quy chế học vụ VinUni yêu cầu bao nhiêu tín chỉ?'")
-        print("   - Tra cứu học vụ: 'Hãy tra cứu thông tin học vụ của sinh viên SV2026001'")
-        print("   - Đặt lịch hẹn: 'Đặt lịch hẹn tư vấn cho SV2026001 vào 14:00 ngày 15/09/2026'")
+        print("   - Câu hỏi chung: 'Xe bus điện VinBus có ưu điểm gì và giá vé lượt ra sao?'")
+        print("   - Tra cứu lộ trình: 'Tuyến xe bus điện E03 có lộ trình di chuyển thế nào?'")
+        print("   - Đăng ký vé tháng: 'Tôi muốn đăng ký làm thẻ vé tháng 1 tuyến cho tuyến E01'")
+        print("   - Tìm lộ trình: 'Tôi muốn đi từ KĐT Smart City sang Vinhomes Ocean Park 1'")
         print("   - Gõ 'exit' hoặc 'quit' để kết thúc phiên trò chuyện.\n")
+
         while True:
             try:
                 user_input = input("👤 Sinh viên hỏi: ").strip()

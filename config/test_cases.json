@@ -1,0 +1,37 @@
+[
+  {
+    "id": "TC01",
+    "type": "direct_query",
+    "question": "Chào bạn, xe bus điện VinBus có những ưu điểm gì và chính sách giá vé lượt chung hiện nay ra sao?",
+    "expected_behavior": "Chatbot trả lời trực tiếp từ System Prompt/Knowledge base nội bộ về chính sách chung, không cần gọi bất kỳ Tool nào.",
+    "complexity": "Low"
+  },
+  {
+    "id": "TC02",
+    "type": "single_tool_query",
+    "question": "Tuyến xe bus điện E03 có lộ trình di chuyển và giá vé lượt cụ thể như thế nào?",
+    "expected_behavior": "Agent nhận diện nhu cầu tra cứu tuyến cố định, tự động phát sinh Tool Call 'get_route_details' với tham số route_id='E03'.",
+    "complexity": "Medium"
+  },
+  {
+    "id": "TC03",
+    "type": "appointment_booking",
+    "question": "Tôi muốn đăng ký làm thẻ vé tháng 1 tuyến cho tuyến E01, thông tin: Nguyễn Văn A, SĐT: 0987654321, nhận thẻ vật lý tại điểm đón Times City.",
+    "expected_behavior": "Agent tự động phát sinh Tool Call 'register_monthly_pass' với đầy đủ thông tin: route_id='E01', customer_name='Nguyễn Văn A', phone='0987654321', pickup_location='Times City', card_type='single_route'.",
+    "complexity": "Medium"
+  },
+  {
+    "id": "TC04",
+    "type": "multi_step_reasoning",
+    "question": "Tôi muốn đi từ KĐT Smart City sang Vinhomes Ocean Park 1, hãy tìm lộ trình nhanh nhất và đăng ký vé tháng liên tuyến cho tôi luôn với SĐT 0912345678.",
+    "expected_behavior": "Agent thực hiện chuỗi suy luận ReAct đa bước: Gọi Tool 'find_best_route' giữa 2 điểm $\\rightarrow$ phân tích kết quả lộ trình $\\rightarrow$ thông báo tuyến gợi ý và tiếp tục gọi Tool 'register_monthly_pass' với loại thẻ 'inter_route' cùng số điện thoại người dùng.",
+    "complexity": "High"
+  },
+  {
+    "id": "TC05",
+    "type": "edge_case_handling",
+    "question": "Tôi muốn tra cứu lộ trình và lịch chạy của tuyến xe bus điện E99 tại Hà Nội.",
+    "expected_behavior": "Agent gọi Tool 'get_route_details' với route_id='E99', nhận kết quả NOT_FOUND/INVALID_ROUTE từ hệ thống và phản hồi lịch sự rằng tuyến E99 chưa tồn tại, không tự bịa đặt lộ trình.",
+    "complexity": "Medium"
+  }
+]
